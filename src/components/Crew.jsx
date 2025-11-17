@@ -1,21 +1,36 @@
-import React, { useContext, useState } from 'react'
-import Header from './Header'
+import React, { useContext, useEffect, useState } from 'react';
+import Header from './Header';
 import { DataContext } from '../App';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 function Crew() {
   gsap.registerPlugin(useGSAP);
+
+  // Sayfa açıldığında animasyonu başlat
   useGSAP(() => {
     gsap.from(".inner-crew-area", { opacity: 0.25, duration: 1.0, ease: "power2.inOut" })
-
-  })
-
+  });
 
   const [selectedMember, setSelectedMember] = useState('commander');
   const { data, setData } = useContext(DataContext);
 
   const selectedMemberData = data[selectedMember] || data['commander'];
+
+  // selectedMemberData değiştiğinde her iki animasyonu da yeniden başlat
+  useEffect(() => {
+    // crew-image animasyonu
+    gsap.fromTo(".crew-image",
+      { opacity: 0 },  // Başlangıç
+      { opacity: 1, ease: "bounce" }  // Bitiş
+    );
+
+    // member-text animasyonu
+    gsap.fromTo(".member-info",
+      { opacity: 0, y: 20 },  // Başlangıç (opacity sıfır ve biraz daha altta)
+      { opacity: 1, y: 0, duration: 0.5, ease: "bounce" }  // Bitiş (daha yukarıda ve görünür hale gelmesi)
+    );
+  }, [selectedMemberData]); // selectedMemberData değiştiğinde her iki animasyonu tetikle
 
   return (
     <div className='crew-container'>
@@ -23,9 +38,8 @@ function Crew() {
         <h1 className="crew-header">
           <span className='crew-number'>02</span>MEET YOUR CREW
         </h1>
-        <img className='selectedmember-photo-mobile' src={selectedMemberData?.image} alt={selectedMemberData} />
+        <img className='selectedmember-photo-mobile' src={selectedMemberData?.image} alt={selectedMemberData?.name} />
         <div className="members-section">
-
           <div className="crew-section">
             <div className="crew-options">
               <button
@@ -56,14 +70,12 @@ function Crew() {
               <p className='member-text'>{selectedMemberData?.text}</p>
             </div>
           </div>
-          <img className='tablet-only crew-image' src={selectedMemberData?.tabletImage} alt={selectedMemberData} />
-
+          <img className='tablet-only crew-image' src={selectedMemberData?.tabletImage} alt={selectedMemberData?.name} />
         </div>
-
       </div>
-      <img className='desktop-only crew-image' src={selectedMemberData?.desktopImage} alt={selectedMemberData} />
+      <img className='desktop-only crew-image' src={selectedMemberData?.desktopImage} alt={selectedMemberData?.name} />
     </div>
-  )
+  );
 }
 
-export default Crew
+export default Crew;

@@ -1,22 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { DataContext } from '../App';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { gsap } from 'gsap';
+
 function Destination() {
-  gsap.registerPlugin(useGSAP);
-  useGSAP(() => {
-    gsap.from(".intro-image-section", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" })
-    gsap.from(".destination-section", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" })
-
-  })
-
-
-
-
   const [selectedPlanet, setSelectedPlanet] = useState('moon'); // Başlangıçta Moon seçili
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const selectedPlanetData = data[selectedPlanet] || data['moon']; // Varsayılan olarak moon verisi
+
+  useEffect(() => {
+    gsap.to(".planet-image", {
+      rotateZ: "+=360",
+      duration: 4,
+      ease: "elastic"
+    });
+  }, [selectedPlanet]);
 
   return (
     <div className='destination-container'>
@@ -58,6 +56,7 @@ function Destination() {
             TITAN
           </p>
         </div>
+
         <div className="selected-planet-info">
           <div className="selected-planet-intro">
             <h3 className='selected-planet-title'>{selectedPlanetData?.title}</h3>

@@ -6,7 +6,22 @@ function Technology() {
   gsap.registerPlugin(useGSAP);
   useGSAP(() => {
     gsap.from(".technology-section", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" })
-    gsap.from(".technology-image", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" })
+    // gsap.from(".technology-image",
+    //   {
+    //     opacity: 0,
+    //     duration: 0.75,
+    //     ease: "power2.inOut",
+    //     clipPath: "polygon (0% 60%, 100% 60%, 100% 40%, 0% 40%)"
+    //   }
+    //   , "+=0.5")
+    gsap.utils.toArray(".desktop-only").forEach((piece, i) => {
+      gsap.from(piece, {
+        opacity: 0,
+        y: 300,
+        duration: 2,
+        ease: "back",
+      })
+    })
 
   })
 

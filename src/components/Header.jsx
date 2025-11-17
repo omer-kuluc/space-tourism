@@ -31,7 +31,7 @@ function Header() {
         <div ref={linksContainer} className="links">
           <img onClick={toggleMenu} className='hamburger-close-icon' src="/img/cross-icon.svg" alt="" />
           <NavLink className='link' to="/"><span>00</span>HOME</NavLink>
-          <NavLink className='link' to="/destination"><span>01</span>DESTINATON</NavLink>
+          <NavLink className='link' to="/destination"><span>01</span>DESTINATION</NavLink>
           <NavLink className='link' to="/crew"><span>02</span>CREW</NavLink>
           <NavLink className='link' to="/technology"><span>03</span>TECHNOLOGY</NavLink>
         </div>

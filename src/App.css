@@ -908,6 +908,8 @@
     align-items: center;
     gap: 150px;
     padding-inline: 166px;
+    overflow-y: hidden;
+    max-height: 775px;
   }
 
   .intro-image-section {
@@ -1001,6 +1003,8 @@
     padding-left: 166px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    max-height: 810px;
+    overflow: hidden;
   }
 
   .inner-crew-area {
@@ -1119,6 +1123,9 @@
       text-align: left;
     }
   }
+
+
+
 
   /*technology-desktop-end*/
 }
