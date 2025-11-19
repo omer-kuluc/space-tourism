@@ -7,7 +7,6 @@ import gsap from 'gsap';
 function Crew() {
   gsap.registerPlugin(useGSAP);
 
-  // Sayfa açıldığında animasyonu başlat
   useGSAP(() => {
     gsap.from(".inner-crew-area", { opacity: 0.25, duration: 1.0, ease: "power2.inOut" })
   });
@@ -17,20 +16,17 @@ function Crew() {
 
   const selectedMemberData = data[selectedMember] || data['commander'];
 
-  // selectedMemberData değiştiğinde her iki animasyonu da yeniden başlat
   useEffect(() => {
-    // crew-image animasyonu
     gsap.fromTo(".crew-image",
-      { opacity: 0 },  // Başlangıç
-      { opacity: 1, ease: "bounce" }  // Bitiş
+      { opacity: 0 },
+      { opacity: 1, ease: "bounce" }
     );
 
-    // member-text animasyonu
     gsap.fromTo(".member-info",
-      { opacity: 0, y: 20 },  // Başlangıç (opacity sıfır ve biraz daha altta)
-      { opacity: 1, y: 0, duration: 0.5, ease: "bounce" }  // Bitiş (daha yukarıda ve görünür hale gelmesi)
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, ease: "bounce" }
     );
-  }, [selectedMemberData]); // selectedMemberData değiştiğinde her iki animasyonu tetikle
+  }, [selectedMemberData]);
 
   return (
     <div className='crew-container'>
