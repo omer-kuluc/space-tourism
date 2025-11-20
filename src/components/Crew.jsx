@@ -34,7 +34,7 @@ function Crew() {
         <h1 className="crew-header">
           <span className='crew-number'>02</span>MEET YOUR CREW
         </h1>
-        <img className='selectedmember-photo-mobile' src={selectedMemberData?.image} alt={selectedMemberData?.name} />
+        <img className='selectedmember-photo-mobile' src={selectedMemberData?.image} alt={selectedMemberData?.name} loading='lazy' />
         <div className="members-section">
           <div className="crew-section">
             <div className="crew-options">
@@ -66,10 +66,10 @@ function Crew() {
               <p className='member-text'>{selectedMemberData?.text}</p>
             </div>
           </div>
-          <img className='tablet-only crew-image' src={selectedMemberData?.tabletImage} alt={selectedMemberData?.name} />
+          <img className='tablet-only crew-image' src={selectedMemberData?.tabletImage} alt={selectedMemberData?.name} loading='lazy' />
         </div>
       </div>
-      <img className='desktop-only crew-image' src={selectedMemberData?.desktopImage} alt={selectedMemberData?.name} />
+      <img className='desktop-only crew-image' src={selectedMemberData?.desktopImage} alt={selectedMemberData?.name} loading='lazy' />
     </div>
   );
 }
