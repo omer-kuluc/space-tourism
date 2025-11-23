@@ -11,8 +11,8 @@ function Destination() {
   useEffect(() => {
     gsap.to(".planet-image", {
       rotate: "+=90",
-      duration: 2,
-      ease: "power1.inOut"
+      duration: 2.5,
+      ease: "back.out"
     });
   }, [selectedPlanet]);
 
