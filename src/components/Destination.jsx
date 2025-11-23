@@ -3,25 +3,18 @@ import { DataContext } from '../App';
 import { gsap } from 'gsap';
 
 function Destination() {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [selectedPlanet, setSelectedPlanet] = useState('moon');
+  const [selectedPlanet, setSelectedPlanet] = useState('moon'); // Başlangıçta Moon seçili
   const { data } = useContext(DataContext);
 
-  const selectedPlanetData = data[selectedPlanet] || data['moon'];
-
-  const handleImageLoad = () => {
-    setIsImageLoaded(true);
-  };
+  const selectedPlanetData = data[selectedPlanet] || data['moon']; // Varsayılan olarak moon verisi
 
   useEffect(() => {
-    if (isImageLoaded) {
-      gsap.to(".planet-image", {
-        rotate: "+=90",
-        duration: 2.5,
-        ease: "back.out"
-      });
-    }
-  }, [selectedPlanet, isImageLoaded]);
+    gsap.to(".planet-image", {
+      rotate: "+=90",
+      duration: 2.5,
+      ease: "back.out"
+    });
+  }, [selectedPlanet]);
 
   return (
     <div className='destination-container'>
@@ -29,24 +22,39 @@ function Destination() {
         <h1 className='destination-header'>
           <span className='destination-number'>01</span>PICK YOUR DESTINATION
         </h1>
-
-        {/* Resim yüklenene kadar bekleyelim */}
-        {!isImageLoaded && <div className="loading-spinner">Loading...</div>}
-
         <img
           className='planet-image'
           src={selectedPlanetData?.image}
           alt={selectedPlanet}
-          onLoad={handleImageLoad}
         />
       </div>
 
       <div className="destination-section">
         <div className="destination-options">
-          <p className={`option ${selectedPlanet === 'moon' ? 'active' : ''}`} onClick={() => setSelectedPlanet('moon')}>MOON</p>
-          <p className={`option ${selectedPlanet === 'mars' ? 'active' : ''}`} onClick={() => setSelectedPlanet('mars')}>MARS</p>
-          <p className={`option ${selectedPlanet === 'europa' ? 'active' : ''}`} onClick={() => setSelectedPlanet('europa')}>EUROPA</p>
-          <p className={`option ${selectedPlanet === 'titan' ? 'active' : ''}`} onClick={() => setSelectedPlanet('titan')}>TITAN</p>
+          <p
+            className={`option ${selectedPlanet === 'moon' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('moon')}
+          >
+            MOON
+          </p>
+          <p
+            className={`option ${selectedPlanet === 'mars' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('mars')}
+          >
+            MARS
+          </p>
+          <p
+            className={`option ${selectedPlanet === 'europa' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('europa')}
+          >
+            EUROPA
+          </p>
+          <p
+            className={`option ${selectedPlanet === 'titan' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('titan')}
+          >
+            TITAN
+          </p>
         </div>
 
         <div className="selected-planet-info">
