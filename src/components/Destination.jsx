@@ -10,9 +10,9 @@ function Destination() {
 
   useEffect(() => {
     gsap.to(".planet-image", {
-      rotateZ: "+=360",
-      duration: 4,
-      ease: "elastic"
+      rotate: "+=90",
+      duration: 2,
+      ease: "power1.inOut"
     });
   }, [selectedPlanet]);
 
