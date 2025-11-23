@@ -7,14 +7,15 @@
 
 /* Başlangıçta görselleri gizle */
 img {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* Yükleme tamamlandıktan sonra görünür yap */
+/* Yükleme tamamlandığında görselleri görünür yap */
 img.loaded {
-  visibility: visible;
   opacity: 1;
 }
+
 
 
 .tablet-only {
