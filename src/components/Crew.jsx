@@ -1,32 +1,33 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Header from './Header';
 import { DataContext } from '../App';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 function Crew() {
+  const [hasMounted, setHasMounted] = useState(false);
   gsap.registerPlugin(useGSAP);
 
-  useGSAP(() => {
-    gsap.from(".inner-crew-area", { opacity: 0.25, duration: 1.0, ease: "power2.inOut" })
-  });
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (hasMounted) {
+      gsap.from(".inner-crew-area", { opacity: 0.25, duration: 1.0, ease: "power2.inOut" });
+    }
+  }, [hasMounted]);
 
   const [selectedMember, setSelectedMember] = useState('commander');
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const selectedMemberData = data[selectedMember] || data['commander'];
 
   useEffect(() => {
-    gsap.fromTo(".crew-image",
-      { opacity: 0 },
-      { opacity: 1, ease: "ease.inOut" }
-    );
-
-    gsap.fromTo(".member-info",
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.5, ease: "ease.inOut" }
-    );
-  }, [selectedMemberData]);
+    if (hasMounted) {
+      gsap.fromTo(".crew-image", { opacity: 0 }, { opacity: 1, ease: "ease.inOut" });
+      gsap.fromTo(".member-info", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "ease.inOut" });
+    }
+  }, [selectedMemberData, hasMounted]);
 
   return (
     <div className='crew-container'>

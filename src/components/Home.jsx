@@ -1,16 +1,19 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-
-import React, { useRef } from 'react'
-
+import React, { useState, useEffect } from 'react';
 
 function Home() {
-  gsap.registerPlugin(useGSAP);
+  const [hasMounted, setHasMounted] = useState(false);
 
-  useGSAP(() => {
-    gsap.from(".inner-home-container", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" })
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
-  })
+  useEffect(() => {
+    if (hasMounted) {
+      gsap.from(".inner-home-container", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" });
+    }
+  }, [hasMounted]);
 
   return (
     <div className='home-container'>
@@ -25,7 +28,7 @@ function Home() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

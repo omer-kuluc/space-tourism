@@ -3,18 +3,25 @@ import { DataContext } from '../App';
 import { gsap } from 'gsap';
 
 function Destination() {
-  const [selectedPlanet, setSelectedPlanet] = useState('moon'); // Başlangıçta Moon seçili
+  const [hasMounted, setHasMounted] = useState(false);
+  const [selectedPlanet, setSelectedPlanet] = useState('moon');
   const { data } = useContext(DataContext);
 
-  const selectedPlanetData = data[selectedPlanet] || data['moon']; // Varsayılan olarak moon verisi
+  const selectedPlanetData = data[selectedPlanet] || data['moon'];
 
   useEffect(() => {
-    gsap.to(".planet-image", {
-      rotate: "+=90",
-      duration: 2.5,
-      ease: "back.out"
-    });
-  }, [selectedPlanet]);
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (hasMounted) {
+      gsap.to(".planet-image", {
+        rotate: "+=90",
+        duration: 2.5,
+        ease: "back.out"
+      });
+    }
+  }, [selectedPlanet, hasMounted]);
 
   return (
     <div className='destination-container'>
@@ -31,28 +38,16 @@ function Destination() {
 
       <div className="destination-section">
         <div className="destination-options">
-          <p
-            className={`option ${selectedPlanet === 'moon' ? 'active' : ''}`}
-            onClick={() => setSelectedPlanet('moon')}
-          >
+          <p className={`option ${selectedPlanet === 'moon' ? 'active' : ''}`} onClick={() => setSelectedPlanet('moon')}>
             MOON
           </p>
-          <p
-            className={`option ${selectedPlanet === 'mars' ? 'active' : ''}`}
-            onClick={() => setSelectedPlanet('mars')}
-          >
+          <p className={`option ${selectedPlanet === 'mars' ? 'active' : ''}`} onClick={() => setSelectedPlanet('mars')}>
             MARS
           </p>
-          <p
-            className={`option ${selectedPlanet === 'europa' ? 'active' : ''}`}
-            onClick={() => setSelectedPlanet('europa')}
-          >
+          <p className={`option ${selectedPlanet === 'europa' ? 'active' : ''}`} onClick={() => setSelectedPlanet('europa')}>
             EUROPA
           </p>
-          <p
-            className={`option ${selectedPlanet === 'titan' ? 'active' : ''}`}
-            onClick={() => setSelectedPlanet('titan')}
-          >
+          <p className={`option ${selectedPlanet === 'titan' ? 'active' : ''}`} onClick={() => setSelectedPlanet('titan')}>
             TITAN
           </p>
         </div>

@@ -1,41 +1,38 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react';
 import { DataContext } from '../App';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+
 function Technology() {
+  const [hasMounted, setHasMounted] = useState(false);
   gsap.registerPlugin(useGSAP);
-  useGSAP(() => {
-    gsap.from(".technology-section", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" })
-    // gsap.from(".technology-image",
-    //   {
-    //     opacity: 0,
-    //     duration: 0.75,
-    //     ease: "power2.inOut",
-    //     clipPath: "polygon (0% 60%, 100% 60%, 100% 40%, 0% 40%)"
-    //   }
-    //   , "+=0.5")
-    gsap.utils.toArray(".desktop-only").forEach((piece, i) => {
-      gsap.from(piece, {
-        opacity: 0,
-        y: 300,
-        duration: 2,
-        ease: "back",
-      })
-    })
 
-  })
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
-
+  useEffect(() => {
+    if (hasMounted) {
+      gsap.from(".technology-section", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" });
+      gsap.utils.toArray(".desktop-only").forEach((piece) => {
+        gsap.from(piece, {
+          opacity: 0,
+          y: 300,
+          duration: 2,
+          ease: "back",
+        });
+      });
+    }
+  }, [hasMounted]);
 
   const [selectedVehicle, setSelectedVehicle] = useState('launch-vehicle');
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const selectedVehicleData = data[selectedVehicle] || data['launch-vehicle'];
 
   return (
     <div className='technology-container'>
       <div className="technology-section">
-
         <h1 className="technology-header">
           <span className='technology-number'>02</span>SPACE LUNCH 101
         </h1>
@@ -62,11 +59,10 @@ function Technology() {
             <p className='technology-text'>{selectedVehicleData?.text}</p>
           </div>
         </div>
-
       </div>
       <img className='desktop-only technology-image' src={selectedVehicleData?.desktopImage} alt={selectedVehicleData} />
     </div>
-  )
+  );
 }
 
 export default Technology;
