@@ -12,11 +12,14 @@ function Crew() {
 
   useEffect(() => {
     // Sayfa yüklendikten sonra animasyonları başlat
-    window.onload = function () {
-      gsap.fromTo(".crew-image", { opacity: 0 }, { opacity: 1, ease: "bounce" });
-      gsap.fromTo(".member-info", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce" });
-    };
+    gsap.fromTo(".crew-image", { opacity: 0 }, { opacity: 1, ease: "bounce" });
+    gsap.fromTo(".member-info", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "bounce" });
   }, [selectedMemberData]); // selectedMemberData değiştiğinde animasyonu başlat
+
+  const handleImageLoad = () => {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => img.classList.add('loaded')); // Yükleme tamamlandığında görünür yap
+  };
 
   return (
     <div className="crew-container">
@@ -29,6 +32,7 @@ function Crew() {
           src={selectedMemberData?.image}
           alt={selectedMemberData?.name}
           loading="lazy"
+          onLoad={handleImageLoad}  // Görsel yüklendikten sonra animasyonları başlat
         />
         <div className="members-section">
           <div className="crew-section">
@@ -44,10 +48,22 @@ function Crew() {
               <p className="member-text">{selectedMemberData?.text}</p>
             </div>
           </div>
-          <img className="tablet-only crew-image" src={selectedMemberData?.tabletImage} alt={selectedMemberData?.name} loading="lazy" />
+          <img
+            className="tablet-only crew-image"
+            src={selectedMemberData?.tabletImage}
+            alt={selectedMemberData?.name}
+            loading="lazy"
+            onLoad={handleImageLoad}
+          />
         </div>
       </div>
-      <img className="desktop-only crew-image" src={selectedMemberData?.desktopImage} alt={selectedMemberData?.name} loading="lazy" />
+      <img
+        className="desktop-only crew-image"
+        src={selectedMemberData?.desktopImage}
+        alt={selectedMemberData?.name}
+        loading="lazy"
+        onLoad={handleImageLoad}
+      />
     </div>
   );
 }

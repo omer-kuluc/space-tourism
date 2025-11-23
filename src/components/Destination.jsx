@@ -3,9 +3,10 @@ import { DataContext } from '../App';
 import { gsap } from 'gsap';
 
 function Destination() {
-  const [selectedPlanet, setSelectedPlanet] = useState('moon');
+  const [selectedPlanet, setSelectedPlanet] = useState('moon'); // Başlangıçta Moon seçili
   const { data } = useContext(DataContext);
-  const selectedPlanetData = data[selectedPlanet] || data['moon'];
+
+  const selectedPlanetData = data[selectedPlanet] || data['moon']; // Varsayılan olarak moon verisi
 
   useEffect(() => {
     gsap.to(".planet-image", {
@@ -15,22 +16,16 @@ function Destination() {
     });
   }, [selectedPlanet]);
 
-  // Sayfa yüklendikten sonra görseli göster
-  const handleImageLoad = () => {
-    window.onload(); // Sayfa yüklendikten sonra animasyonu başlat
-  };
-
   return (
-    <div className="destination-container">
+    <div className='destination-container'>
       <div className="intro-image-section">
-        <h1 className="destination-header">
-          <span className="destination-number">01</span>PICK YOUR DESTINATION
+        <h1 className='destination-header'>
+          <span className='destination-number'>01</span>PICK YOUR DESTINATION
         </h1>
         <img
-          className="planet-image"
+          className='planet-image'
           src={selectedPlanetData?.image}
           alt={selectedPlanet}
-          onLoad={handleImageLoad}  // Görsel yüklendikten sonra animasyonları başlat
         />
       </div>
 
@@ -64,18 +59,18 @@ function Destination() {
 
         <div className="selected-planet-info">
           <div className="selected-planet-intro">
-            <h3 className="selected-planet-title">{selectedPlanetData?.title}</h3>
-            <p className="selected-planet-text">{selectedPlanetData?.text}</p>
+            <h3 className='selected-planet-title'>{selectedPlanetData?.title}</h3>
+            <p className='selected-planet-text'>{selectedPlanetData?.text}</p>
           </div>
-          <span className="border"></span>
+          <span className='border'></span>
           <div className="distance-time-area">
             <div className="distance-area">
               <h4>AVG. DISTANCE</h4>
-              <p className="distance-info">{selectedPlanetData?.distance}</p>
+              <p className='distance-info'>{selectedPlanetData?.distance}</p>
             </div>
             <div className="time-area">
               <h4>EST. TRAVEL TIME</h4>
-              <p className="time-info">{selectedPlanetData?.time}</p>
+              <p className='time-info'>{selectedPlanetData?.time}</p>
             </div>
           </div>
         </div>
