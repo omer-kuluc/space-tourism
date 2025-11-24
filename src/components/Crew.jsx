@@ -5,28 +5,17 @@ import gsap from 'gsap';
 
 function Crew() {
   const [hasMounted, setHasMounted] = useState(false);
-  const [isImageLoaded, setIsImageLoaded] = useState(false); // Yeni state, resimlerin yüklenip yüklenmediğini kontrol eder.
   gsap.registerPlugin(useGSAP);
 
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
-  // Resimlerin yüklenmesini beklemek
   useEffect(() => {
-    const image = new Image();
-    image.src = '/img/crew-background.jpg'; // Örnek bir background resmi yolu
-    image.onload = () => {
-      setIsImageLoaded(true);  // Resim yüklendiğinde state güncellenir
-    };
-  }, []);
-
-  useEffect(() => {
-    if (hasMounted && isImageLoaded) {
+    if (hasMounted) {
       gsap.from(".inner-crew-area", { opacity: 0.25, duration: 1.0, ease: "power2.inOut" });
-      document.querySelector('.crew-container').classList.add('loaded'); // Yüklendikten sonra opaklık değişimi
     }
-  }, [hasMounted, isImageLoaded]);
+  }, [hasMounted]);
 
   const [selectedMember, setSelectedMember] = useState('commander');
   const { data } = useContext(DataContext);

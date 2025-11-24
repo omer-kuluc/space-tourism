@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import React, { useState, useEffect } from 'react';
 
 function Home() {
   const [hasMounted, setHasMounted] = useState(false);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
-  // Resim yüklenmesini beklemek
   useEffect(() => {
-    const image = new Image();
-    image.src = '/img/home-background-desktop.jpg';  // Background resminin yolu
-    image.onload = () => {
-      setIsImageLoaded(true);  // Resim yüklendiğinde state'i güncelle
-    };
-  }, []);
-
-  useEffect(() => {
-    if (hasMounted && isImageLoaded) {
+    if (hasMounted) {
       gsap.from(".inner-home-container", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" });
-      document.querySelector('.home-container').classList.add('loaded'); // Yüklendiğinde opaklık değişimi
     }
-  }, [hasMounted, isImageLoaded]);
+  }, [hasMounted]);
 
   return (
     <div className='home-container'>
