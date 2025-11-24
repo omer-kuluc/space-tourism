@@ -1135,13 +1135,14 @@
 
   /*loading-start*/
   /* Loading ekranını tam ekran yapıyoruz */
+  /* Tam ekran loading ekranı */
   .loading-container {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(2, 5, 26, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     /* Yarı şeffaf bir arka plan */
     display: flex;
     justify-content: center;
@@ -1150,17 +1151,25 @@
     /* En üst katmanda olacak */
   }
 
-  /* Spinner yazısının stilini verelim */
+  /* Spinner yazısı */
   .spinner {
     font-size: 24px;
-    color: rgb(29, 95, 150);
+    color: white;
     font-weight: bold;
   }
 
-  /* Eğer loading ekranı bitince başka bileşenlerin görünmesini engellemek için */
+  /* Loading sırasında sayfa kaydırmasını engelliyoruz */
   body {
     overflow: hidden;
+    /* Sayfayı kaydırmayı engelliyoruz */
   }
+
+  /* Loading aktifken, diğer her şey gizlensin */
+  body.loading-active * {
+    visibility: hidden;
+    display: none;
+  }
+
 
 
 
