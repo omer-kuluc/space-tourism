@@ -1,14 +1,15 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, Suspense, lazy } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Destination from './components/Destination';
-import Crew from './components/Crew';
-import Technology from './components/Technology';
-import Header from './components/Header';  // Header bileşenini dahil ediyoruz
-import Loading from './components/Loading';  // Loading bileşenini dahil ediyoruz
+import Header from './components/Header';
+import Loading from './components/Loading';
 
 export const DataContext = createContext(null);
+
+const Home = lazy(() => import('./components/Home'));
+const Destination = lazy(() => import('./components/Destination'));
+const Crew = lazy(() => import('./components/Crew'));
+const Technology = lazy(() => import('./components/Technology'));
 
 function App() {
   const [data, setData] = useState([]);
@@ -20,7 +21,7 @@ function App() {
       setData(data);
 
       // 4.5 saniye sonra loading ekranını kapatıyoruz
-      setTimeout(() => setIsLoading(false), 2500); // 2.5 saniye bekle
+      setTimeout(() => setIsLoading(false), 4500); // 4.5 saniye bekle
     }
     getData();
   }, []);
@@ -31,13 +32,15 @@ function App() {
         <Loading /> // Yükleme sırasında Loading bileşeni gösteriliyor
       ) : (
         <>
-          <Header />  {/* Veriler yüklendikten sonra Header'ı gösteriyoruz */}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/destination" element={<Destination />} />
-            <Route path="/crew" element={<Crew />} />
-            <Route path="/technology" element={<Technology />} />
-          </Routes>
+          <Header />  {/* Header'ı sadece loading bittiğinde gösteriyoruz */}
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/destination" element={<Destination />} />
+              <Route path="/crew" element={<Crew />} />
+              <Route path="/technology" element={<Technology />} />
+            </Routes>
+          </Suspense>
         </>
       )}
     </DataContext.Provider>
