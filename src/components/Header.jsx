@@ -10,9 +10,8 @@ function Header() {
   gsap.registerPlugin(useGSAP);
 
 
-  useGSAP(() => {
-    gsap.from(".link", { opacity: 0, stagger: 0.5, rotate: 180, duration: 1.5, ease: "power2.inOut" })
-  })
+  // useGSAP(() => {
+  // })
 
   const [isOpen, setIsOpen] = useState(false);
 
