@@ -1135,6 +1135,35 @@
 
   /*loading-start*/
   /* App.css dosyanıza ekleyebilirsiniz */
+  /* Sayfa yüklendikten sonra loading ekranını tam görünür tutalım */
+  .loading-active * {
+    visibility: hidden;
+    /* Her şeyin görünmemesini sağlıyoruz */
+    display: none;
+    /* Herhangi bir şeyin görünmemesini engelliyoruz */
+  }
+
+  /* Loading ekranı aktifken sadece loading ekranını gösterelim */
+  .loading-active .loading-container {
+    visibility: visible;
+    display: block;
+  }
+
+  /* Loading ekranı tam ekran olmalı */
+  .loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Yarı şeffaf arka plan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: visible;
+  }
 
 
 
