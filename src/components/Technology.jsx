@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { DataContext } from '../App';
-import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 function Technology() {
   const [hasMounted, setHasMounted] = useState(false);
-  gsap.registerPlugin(useGSAP);
+  const [selectedVehicle, setSelectedVehicle] = useState('launch-vehicle');
+  const { data } = useContext(DataContext);
+  const selectedVehicleData = data[selectedVehicle] || data['launch-vehicle'];
 
+  // Sayfa yüklendikçe animasyon başlatma
   useEffect(() => {
     setHasMounted(true);
   }, []);
@@ -14,21 +16,24 @@ function Technology() {
   useEffect(() => {
     if (hasMounted) {
       gsap.from(".technology-section", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" });
+
       gsap.utils.toArray(".desktop-only").forEach((piece) => {
         gsap.from(piece, {
           opacity: 0,
-          y: 300,
+          y: 200,
           duration: 2,
           ease: "back",
         });
       });
+
+      // seçilen araca animasyon ekleme
+      gsap.fromTo(
+        `.technology-image.${selectedVehicle}`,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }
+      );
     }
-  }, [hasMounted]);
-
-  const [selectedVehicle, setSelectedVehicle] = useState('launch-vehicle');
-  const { data } = useContext(DataContext);
-
-  const selectedVehicleData = data[selectedVehicle] || data['launch-vehicle'];
+  }, [hasMounted, selectedVehicle]);
 
   return (
     <div className='technology-container'>
@@ -36,8 +41,20 @@ function Technology() {
         <h1 className="technology-header">
           <span className='technology-number'>02</span>SPACE LUNCH 101
         </h1>
-        <img className='selected-technology-photo-mobile' src={selectedVehicleData?.image} alt={selectedVehicleData} />
-        <img className='tablet-only technology-image' src={selectedVehicleData?.tabletImage} alt={selectedVehicleData} />
+
+        <img
+          className={`selected-technology-photo-mobile technology-image ${selectedVehicle}`}
+          src={selectedVehicleData?.image}
+          alt={selectedVehicleData?.title}
+        />
+
+        {/* Seçilen aracın tablet görseli */}
+        <img
+          className={`tablet-only technology-image ${selectedVehicle}`}
+          src={selectedVehicleData?.tabletImage}
+          alt={selectedVehicleData?.title}
+        />
+
         <div className="technology-text">
           <div className="technology-options">
             <button
@@ -60,7 +77,13 @@ function Technology() {
           </div>
         </div>
       </div>
-      <img className='desktop-only technology-image' src={selectedVehicleData?.desktopImage} alt={selectedVehicleData} />
+
+      {/* Desktop-only resimler */}
+      <img
+        className={`desktop-only technology-image ${selectedVehicle}`}
+        src={selectedVehicleData?.desktopImage}
+        alt={selectedVehicleData?.title}
+      />
     </div>
   );
 }
