@@ -23,6 +23,11 @@ function Destination() {
     }
   }, [selectedPlanet, hasMounted]);
 
+  useEffect(() => {
+    const image = new Image();
+    image.src = selectedPlanetData?.image;
+  }, [selectedPlanet]);
+
   return (
     <div className='destination-container'>
       <div className="intro-image-section">
