@@ -861,6 +861,15 @@
     background-position: center;
     padding-top: 251px;
     padding-bottom: 131px;
+    opacity: 0;
+    /* Başlangıçta görünmez yapıyoruz */
+    transition: opacity 0.5s ease-in-out;
+    /* Yavaşça görünür olmasını sağlıyoruz */
+  }
+
+  .home-container.loaded {
+    opacity: 1;
+    /* Yüklendikten sonra görünür hale getir */
   }
 
   .inner-home-container {
