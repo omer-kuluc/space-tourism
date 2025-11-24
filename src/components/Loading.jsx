@@ -3,23 +3,22 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 function Loading() {
-  const loadingRef = useRef(null);  // Ref tanımlıyoruz
 
   useEffect(() => {
     // Sayfa yüklendikten sonra animasyon başlasın
     gsap.fromTo(
-      loadingRef.current, // Ref'e bağlanan DOM öğesi
-      { opacity: 1 }, // Başlangıç opaklık 1
+      ".loading-container",
+      { opacity: 0 }, // Başlangıç opaklık 1
       {
-        opacity: 0, // Sonra opaklık 0 olacak
+        opacity: 1, // Sonra opaklık 0 olacak
         duration: 2.5, // Animasyon süresi 4.5 saniye
-        ease: "ease.in", // Animasyon easing
+        ease: "back.in", // Animasyon easing
       }
     );
   }, []);
 
   return (
-    <div className="loading-container" ref={loadingRef}>
+    <div className="loading-container" >
       <div className="spinner">Yükleniyor...</div>
     </div>
   );

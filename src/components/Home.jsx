@@ -11,7 +11,8 @@ function Home() {
 
   useEffect(() => {
     if (hasMounted) {
-      gsap.from(".inner-home-container", { opacity: 0.25, duration: 0.5, ease: "power2.inOut" });
+      gsap.to("home-container", { opacity: 1, duration: 3.5, ease: "back.in" });
+      gsap.from(".inner-home-container", { opacity: 0.25, duration: 1.5, ease: "power2.inOut" });
     }
   }, [hasMounted]);
 
