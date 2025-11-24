@@ -13,7 +13,7 @@ function Loading() {
       {
         opacity: 0, // Sonra opaklık 0 olacak
         duration: 2.5, // Animasyon süresi 4.5 saniye
-        ease: "power2.inOut", // Animasyon easing
+        ease: "ease.in", // Animasyon easing
       }
     );
   }, []);

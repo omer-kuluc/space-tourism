@@ -20,28 +20,25 @@ function App() {
       setData(data);
 
       // 4.5 saniye sonra loading ekranını kapatıyoruz
-      setTimeout(() => setIsLoading(false), 4500); // 4.5 saniye bekle
+      setTimeout(() => setIsLoading(false), 2500); // 4.5 saniye bekle
     }
     getData();
   }, []);
 
+  // Loading sırasında hiçbir şey render edilmesin
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <DataContext.Provider value={{ data, setData }}>
-      <div className={isLoading ? 'loading-active' : ''}>
-        {isLoading ? (
-          <Loading /> // Yükleme sırasında Loading bileşeni gösteriliyor
-        ) : (
-          <>
-            <Header />  {/* Header'ı sadece loading bittiğinde gösteriyoruz */}
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/destination" element={<Destination />} />
-              <Route path="/crew" element={<Crew />} />
-              <Route path="/technology" element={<Technology />} />
-            </Routes>
-          </>
-        )}
-      </div>
+      <Header /> {/* Veriler yüklendikten sonra Header'ı gösteriyoruz */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/destination" element={<Destination />} />
+        <Route path="/crew" element={<Crew />} />
+        <Route path="/technology" element={<Technology />} />
+      </Routes>
     </DataContext.Provider>
   );
 }
