@@ -1017,6 +1017,13 @@
     grid-template-columns: repeat(2, 1fr);
     max-height: 810px;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Yüklendiğinde görünür hale gelmesini sağlayacak sınıf */
+  .crew-container.loaded {
+    opacity: 1;
   }
 
   .inner-crew-area {
