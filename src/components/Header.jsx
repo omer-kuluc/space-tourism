@@ -13,26 +13,23 @@ function Header() {
   const handleHover = (e) => {
     const target = e.target;
 
-    // Linkin tam genişliğini ve sol pozisyonunu alıyoruz
     const link = target.closest('a');
     const linkWidth = link.offsetWidth;
     const leftPosition = link.offsetLeft;
 
-    // GSAP ile çizgiyi hareket ettiriyoruz
     gsap.to(lineRef.current, {
-      width: linkWidth, // Çizgiyi linkin genişliği kadar yapıyoruz
-      left: leftPosition,  // Linkin sol pozisyonuna kaydırıyoruz
-      opacity: 1, // Çizgiyi görünür yapıyoruz
+      width: linkWidth,
+      left: leftPosition,
+      opacity: 1,
       duration: 0.3,
       ease: "power2.out",
     });
   };
 
-  // Hover dışında çizgiyi kaybetme
   const handleMouseLeave = () => {
     gsap.to(lineRef.current, {
-      width: 0, // Çizgiyi yok ediyoruz
-      opacity: 0, // Çizgiyi gizliyoruz
+      width: 0,
+      opacity: 0,
       duration: 0.3,
       ease: "power2.out",
     });
@@ -83,7 +80,7 @@ function Header() {
             <span>03</span>TECHNOLOGY
           </NavLink>
         </div>
-        <div ref={lineRef} className="line"></div> {/* Çizgi burada */}
+        <div ref={lineRef} className="line"></div>
       </div>
     </div>
   );
