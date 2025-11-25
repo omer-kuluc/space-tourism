@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { DataContext } from '../App';
 import { gsap } from 'gsap';
 
@@ -6,8 +6,33 @@ function Destination() {
   const [hasMounted, setHasMounted] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState('moon');
   const { data } = useContext(DataContext);
+  const lineRef = useRef(); // Çizgi için referans
 
   const selectedPlanetData = data[selectedPlanet] || data['moon'];
+
+  const handleHover = (e) => {
+    const target = e.target;
+    const link = target.closest('p'); // Gezegen seçeneği
+    const linkWidth = link.offsetWidth;
+    const leftPosition = link.offsetLeft;
+
+    gsap.to(lineRef.current, {
+      width: linkWidth,
+      left: leftPosition,
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    gsap.to(lineRef.current, {
+      width: 0,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
 
   useEffect(() => {
     setHasMounted(true);
@@ -43,19 +68,42 @@ function Destination() {
 
       <div className="destination-section">
         <div className="destination-options">
-          <p className={`option ${selectedPlanet === 'moon' ? 'active' : ''}`} onClick={() => setSelectedPlanet('moon')}>
+          <p
+            className={`option ${selectedPlanet === 'moon' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('moon')}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleMouseLeave}
+          >
             MOON
           </p>
-          <p className={`option ${selectedPlanet === 'mars' ? 'active' : ''}`} onClick={() => setSelectedPlanet('mars')}>
+          <p
+            className={`option ${selectedPlanet === 'mars' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('mars')}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleMouseLeave}
+          >
             MARS
           </p>
-          <p className={`option ${selectedPlanet === 'europa' ? 'active' : ''}`} onClick={() => setSelectedPlanet('europa')}>
+          <p
+            className={`option ${selectedPlanet === 'europa' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('europa')}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleMouseLeave}
+          >
             EUROPA
           </p>
-          <p className={`option ${selectedPlanet === 'titan' ? 'active' : ''}`} onClick={() => setSelectedPlanet('titan')}>
+          <p
+            className={`option ${selectedPlanet === 'titan' ? 'active' : ''}`}
+            onClick={() => setSelectedPlanet('titan')}
+            onMouseEnter={handleHover}
+            onMouseLeave={handleMouseLeave}
+          >
             TITAN
           </p>
+          <div ref={lineRef} className="options-line"></div>
+
         </div>
+
 
         <div className="selected-planet-info">
           <div className="selected-planet-intro">

@@ -553,7 +553,7 @@
   .link.active::after {
     position: absolute;
     content: '';
-    bottom: -36px;
+    bottom: -6px;
     left: 0;
     background-color: white;
     width: 100%;
@@ -841,6 +841,11 @@
     position: relative;
   }
 
+
+  .link.active::after {
+    bottom: -36px;
+  }
+
   /* Line (Beyaz Çizgi) Başlangıçta Gizli */
   .line {
     position: absolute;
@@ -953,10 +958,41 @@
     max-width: 440px;
   }
 
+  /*destination-options-new-start*/
+
   .destination-options {
     margin-bottom: 37px;
     justify-content: flex-start;
+    position: relative;
+    /* Konteyneri pozisyonlandırıyoruz */
   }
+
+  .destination-options p {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .destination-options p.active {
+    font-weight: bold;
+    /* Aktif olan gezegen bold */
+  }
+
+  /* Line (Beyaz Çizgi) Başlangıçta Gizli ve Yalnızca Destination için */
+  .options-line {
+    position: absolute;
+    background-color: white;
+    height: 3px;
+    width: 0;
+    top: 20px;
+    /* Seçeneklerin hemen altına yerleştiriyoruz */
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+  }
+
+  /*destination-options-new-end*/
+
 
   .selected-planet-info {
     justify-content: flex-start;
