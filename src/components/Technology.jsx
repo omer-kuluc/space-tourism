@@ -26,7 +26,7 @@ function Technology() {
         });
       });
 
-      // seçilen araca animasyon ekleme
+      // Seçilen araca animasyon ekleme
       gsap.fromTo(
         `.technology-image.${selectedVehicle}`,
         { opacity: 0, scale: 0.8 },
@@ -34,6 +34,65 @@ function Technology() {
       );
     }
   }, [hasMounted, selectedVehicle]);
+
+
+  const handleHover = (e) => {
+    const image = e.target;
+    const rect = image.getBoundingClientRect();
+    const xPos = e.clientX - rect.left; // Mouse'un X koordinatı
+    const yPos = e.clientY - rect.top;  // Mouse'un Y koordinatı
+
+    const xPercent = (xPos / rect.width) * 100; // X pozisyonunu yüzdeye dönüştür
+    const yPercent = (yPos / rect.height) * 100; // Y pozisyonunu yüzdeye dönüştür
+
+    let rotationX = (yPercent - 50) * 0.3;  // Y eksenini daha güçlü yap
+    let rotationY = (xPercent - 50) * 0.3;  // X eksenini daha güçlü yap
+
+    // Sağ üst köşeye yaklaşıyorsak, sol alt köşe havalanmalı
+    if (xPercent > 50 && yPercent < 50) {
+      rotationX = (yPercent - 50) * -0.3;  // Y eksenini ters yap
+      rotationY = (xPercent - 50) * -0.3;  // X eksenini ters yap
+    }
+
+    // Sol alt köşeye yaklaşıyorsak, sağ üst köşe havalanmalı
+    if (xPercent < 50 && yPercent > 50) {
+      rotationX = (yPercent - 50) * -0.3;   // Y eksenini ters yap
+      rotationY = (xPercent - 50) * -0.3;   // X eksenini ters yap
+    }
+
+    // **Sağ alt köşeye yaklaşıyorsak, sol üst köşe havalanmalı**: (DÜZENLENDİ)
+    if (xPercent > 50 && yPercent > 50) {
+      rotationX = (yPercent - 50) * -0.3;   // Y eksenini ters yap
+      rotationY = (xPercent - 50) * -0.3;  // X eksenini ters yap
+    }
+    // **Sol üst köşeye yaklaşıyorsak, sağ alt köşe havalanmalı**: (Değişmedi)
+    if (xPercent < 50 && yPercent < 50) {
+      rotationX = (yPercent - 50) * 0.3;  // Y eksenini ters yap
+      rotationY = (xPercent - 50) * 0.3;   // X eksenini ters yap
+    }
+
+    // Bu değişkenlerle animasyonu çalıştır
+    gsap.to(image, {
+      duration: 0.4,
+      rotationX: rotationX,
+      rotationY: rotationY,
+      scale: 1.03,
+      ease: "power2.inOut",
+    });
+  };
+
+
+
+  const handleMouseLeave = (e) => {
+    const image = e.target;
+    gsap.to(image, {
+      duration: 0.3,
+      rotationX: 0,
+      rotationY: 0,
+      scale: 1,
+      ease: "power2.inOut",
+    });
+  };
 
   return (
     <div className='technology-container'>
@@ -48,7 +107,6 @@ function Technology() {
           alt={selectedVehicleData?.title}
         />
 
-        {/* Seçilen aracın tablet görseli */}
         <img
           className={`tablet-only technology-image ${selectedVehicle}`}
           src={selectedVehicleData?.tabletImage}
@@ -83,6 +141,8 @@ function Technology() {
         className={`desktop-only technology-image ${selectedVehicle}`}
         src={selectedVehicleData?.desktopImage}
         alt={selectedVehicleData?.title}
+        onMouseEnter={handleHover} // Hover olduğunda animasyon başlat
+        onMouseLeave={handleMouseLeave} // Hover çıkınca animasyonu geri al
       />
     </div>
   );
