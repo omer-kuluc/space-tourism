@@ -26,7 +26,6 @@ function Technology() {
         });
       });
 
-      // Seçilen araca animasyon ekleme
       gsap.fromTo(
         `.technology-image.${selectedVehicle}`,
         { opacity: 0, scale: 0.8 },
@@ -39,39 +38,38 @@ function Technology() {
   const handleHover = (e) => {
     const image = e.target;
     const rect = image.getBoundingClientRect();
-    const xPos = e.clientX - rect.left; // Mouse'un X koordinatı
-    const yPos = e.clientY - rect.top;  // Mouse'un Y koordinatı
+    const xPos = e.clientX - rect.left;
+    const yPos = e.clientY - rect.top;
 
-    const xPercent = (xPos / rect.width) * 100; // X pozisyonunu yüzdeye dönüştür
-    const yPercent = (yPos / rect.height) * 100; // Y pozisyonunu yüzdeye dönüştür
+    const xPercent = (xPos / rect.width) * 100;
+    const yPercent = (yPos / rect.height) * 100;
 
-    let rotationX = (yPercent - 50) * 0.3;  // Y eksenini daha güçlü yap
-    let rotationY = (xPercent - 50) * 0.3;  // X eksenini daha güçlü yap
+    let rotationX = (yPercent - 50) * 0.3;
+    let rotationY = (xPercent - 50) * 0.3;
 
-    // Sağ üst köşeye yaklaşıyorsak, sol alt köşe havalanmalı
+    // Sağ üst köşe
     if (xPercent > 50 && yPercent < 50) {
-      rotationX = (yPercent - 50) * -0.3;  // Y eksenini ters yap
-      rotationY = (xPercent - 50) * -0.3;  // X eksenini ters yap
+      rotationX = (yPercent - 50) * -0.3;
+      rotationY = (xPercent - 50) * -0.3;
     }
 
-    // Sol alt köşeye yaklaşıyorsak, sağ üst köşe havalanmalı
+    // Sol alt köşe
     if (xPercent < 50 && yPercent > 50) {
-      rotationX = (yPercent - 50) * -0.3;   // Y eksenini ters yap
-      rotationY = (xPercent - 50) * -0.3;   // X eksenini ters yap
+      rotationX = (yPercent - 50) * -0.3;
+      rotationY = (xPercent - 50) * -0.3;
     }
 
-    // **Sağ alt köşeye yaklaşıyorsak, sol üst köşe havalanmalı**: (DÜZENLENDİ)
+    //Sağ alt köşe
     if (xPercent > 50 && yPercent > 50) {
-      rotationX = (yPercent - 50) * -0.3;   // Y eksenini ters yap
-      rotationY = (xPercent - 50) * -0.3;  // X eksenini ters yap
+      rotationX = (yPercent - 50) * -0.3;
+      rotationY = (xPercent - 50) * -0.3;
     }
-    // **Sol üst köşeye yaklaşıyorsak, sağ alt köşe havalanmalı**: (Değişmedi)
+    //Sol üst köşe
     if (xPercent < 50 && yPercent < 50) {
-      rotationX = (yPercent - 50) * 0.3;  // Y eksenini ters yap
-      rotationY = (xPercent - 50) * 0.3;   // X eksenini ters yap
+      rotationX = (yPercent - 50) * 0.3;
+      rotationY = (xPercent - 50) * 0.3;
     }
 
-    // Bu değişkenlerle animasyonu çalıştır
     gsap.to(image, {
       duration: 0.4,
       rotationX: rotationX,
@@ -135,14 +133,12 @@ function Technology() {
           </div>
         </div>
       </div>
-
-      {/* Desktop-only resimler */}
       <img
         className={`desktop-only technology-image ${selectedVehicle}`}
         src={selectedVehicleData?.desktopImage}
         alt={selectedVehicleData?.title}
-        onMouseEnter={handleHover} // Hover olduğunda animasyon başlat
-        onMouseLeave={handleMouseLeave} // Hover çıkınca animasyonu geri al
+        onMouseEnter={handleHover}
+        onMouseLeave={handleMouseLeave}
       />
     </div>
   );

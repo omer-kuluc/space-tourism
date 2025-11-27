@@ -1055,6 +1055,8 @@
     grid-template-columns: repeat(2, 1fr);
     max-height: 810px;
     overflow: hidden;
+    background-image: url('/img/crew-background-desktop.jpg');
+
   }
 
   .inner-crew-area {
@@ -1174,16 +1176,11 @@
     }
   }
 
-
   .desktop-only.technology-image {
     transform-style: preserve-3d;
     perspective: 1000px;
-    /* Görsellerin 3D dönüşümünü düzgün gösterebilmek için */
     transition: transform 0.3s ease;
-    /* Hover durumunda animasyon */
   }
-
-
 
   /*technology-desktop-end*/
 
